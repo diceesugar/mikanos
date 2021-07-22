@@ -1,11 +1,11 @@
-#include <Uefi.h>
-#include <Library/UefiLib.h>
-#include <Library/UefiBootServicesTableLib.h>
-#include <Library/PrintLib.h>
-#include <Protocol/LoadedImage.h>
-#include <Protocol/SimpleFileSystem.h>
-#include <Protocol/DiskIo2.h>
-#include <Protocol/BlockIo.h>
+#include  <Uefi.h>
+#include  <Library/UefiLib.h>
+#include  <Library/UefiBootServicesTableLib.h>
+#include  <Library/PrintLib.h>
+#include  <Protocol/LoadedImage.h>
+#include  <Protocol/SimpleFileSystem.h>
+#include  <Protocol/DiskIo2.h>
+#include  <Protocol/BlockIo.h>
 
 struct MemoryMap {
   UINTN buffer_size;
@@ -78,11 +78,11 @@ EFI_STATUS SaveMemoryMap(struct MemoryMap* map, EFI_FILE_PROTOCOL* file) {
   file->Write(file, &len, header);
 
   Print(L"map->buffer = %081x, map->map_size = %08lx\n",
-      map->buffer, map->map_size);
+        map->buffer, map->map_size);
 
   EFI_PHYSICAL_ADDRESS iter;
   int i;
-  for (iter (EFI_PHYSICAL_ADDRESS)map->buffer, i = 0;
+  for (iter = (EFI_PHYSICAL_ADDRESS)map->buffer, i = 0;
        iter < (EFI_PHYSICAL_ADDRESS)map->buffer + map->map_size;
        iter += map->descriptor_size, i++) {
     EFI_MEMORY_DESCRIPTOR* desc = (EFI_MEMORY_DESCRIPTOR*)iter;
@@ -103,7 +103,7 @@ EFI_STATUS SaveMemoryMap(struct MemoryMap* map, EFI_FILE_PROTOCOL* file) {
 }
 
 EFI_STATUS OpenRootDir(EFI_HANDLE image_handle, EFI_FILE_PROTOCOL** root) {
-  EFI_LOADED_IMAGE_PROTOCOL* loader_image;
+  EFI_LOADED_IMAGE_PROTOCOL* loaded_image;
   EFI_SIMPLE_FILE_SYSTEM_PROTOCOL* fs;
 
   gBS->OpenProtocol(
@@ -117,7 +117,7 @@ EFI_STATUS OpenRootDir(EFI_HANDLE image_handle, EFI_FILE_PROTOCOL** root) {
   gBS->OpenProtocol(
       loaded_image->DeviceHandle,
       &gEfiSimpleFileSystemProtocolGuid,
-      (VOID **)&fs,
+      (VOID**)&fs,
       image_handle,
       NULL,
       EFI_OPEN_PROTOCOL_BY_HANDLE_PROTOCOL);
@@ -152,6 +152,6 @@ EFI_STATUS EFIAPI UefiMain(
 
   Print(L"All done\n");
 
-  while(1);
+  while (1);
   return EFI_SUCCESS;
 }
