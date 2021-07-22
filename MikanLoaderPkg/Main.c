@@ -129,7 +129,7 @@ EFI_STATUS OpenRootDir(EFI_HANDLE image_handle, EFI_FILE_PROTOCOL** root) {
 
 EFI_STATUS EFIAPI UefiMain(
     EFI_HANDLE image_handle,
-    EFI_SYSTEM_TABLE *system_table) {
+    EFI_SYSTEM_TABLE* system_table) {
   Print(L"Hello, diceesugar!\n");
 
   CHAR8 memmap_buf[4096 * 4];
